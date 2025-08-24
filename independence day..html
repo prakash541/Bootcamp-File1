@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Happy Independence Day</title>
+<style>
+  :root{
+    --saffron: #FF9933;
+    --white: #FFFFFF;
+    --green: #138808;
+    --bg: #0b1020;
+  }
+
+  /* Page reset */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: radial-gradient(1200px 400px at 10% 10%, rgba(255,255,255,0.03), transparent 5%),
+                radial-gradient(900px 300px at 90% 80%, rgba(255,255,255,0.02), transparent 5%),
+                var(--bg);
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color:var(--white);
+    overflow:hidden;
+    padding:2rem;
+  }
+
+  /* Card */
+  .card{
+    width:min(980px, 96%);
+    border-radius:18px;
+    padding:2rem;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(3,8,20,0.6);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    backdrop-filter: blur(6px);
+  }
+
+  /* Tricolor ribbon (waving) */
+  .ribbon{
+    position:absolute;
+    top:-20%;
+    left:-10%;
+    width:140%;
+    height:60%;
+    background: linear-gradient(90deg, var(--saffron) 0 33.333%, var(--white) 33.333% 66.666%, var(--green) 66.666% 100%);
+    transform-origin:center;
+    border-radius:50% / 30%;
+    filter:drop-shadow(0 10px 30px rgba(0,0,0,0.35));
+    animation: wave 5s linear infinite;
+    opacity:0.95;
+  }
+
+  @keyframes wave{
+    0%{ transform: rotate(-8deg) translateY(0) }
+    25%{ transform: rotate(-6deg) translateY(-6px) }
+    50%{ transform: rotate(-8deg) translateY(0) }
+    75%{ transform: rotate(-10deg) translateY(6px) }
+    100%{ transform: rotate(-8deg) translateY(0) }
+  }
+
+  /* Headline */
+  .hero{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    align-items:flex-start;
+    max-width:800px;
+  }
+
+  h1{
+    font-size:clamp(2rem, 6vw, 4rem);
+    line-height:1;
+    letter-spacing:0.01em;
+    margin-bottom:0.2rem;
+    background: linear-gradient(90deg, var(--saffron), var(--white) 40%, var(--green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color:transparent;
+    text-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    animation: popIn 800ms cubic-bezier(.2,.9,.3,1) 1;
+    display:inline-block;
+  }
+
+  @keyframes popIn{
+    0%{ transform: translateY(30px) scale(.98); opacity:0; filter:blur(6px); }
+    100%{ transform: translateY(0) scale(1); opacity:1; filter:blur(0); }
+  }
+
+  p.lead{
+    font-size:clamp(1rem, 2.2vw, 1.25rem);
+    color:rgba(255,255,255,0.9);
+    max-width:62ch;
+  }
+
+  /* Button */
+  .btn{
+    display:inline-flex;
+    gap:.6rem;
+    align-items:center;
+    padding:.65rem 1rem;
+    border-radius:12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border:1px solid rgba(255,255,255,0.06);
+    cursor:pointer;
+    color:var(--white);
+    font-weight:600;
+    margin-top:0.8rem;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:active{ transform: translateY(1px) }
+  .flag-dot{
+    width:14px;height:14px;border-radius:50%;
+    background: linear-gradient(180deg, var(--saffron), var(--green));
+    box-shadow: inset 0 0 0 4px var(--white);
+  }
+
+  /* Fireworks / confetti = multiple absolutely positioned particles */
+  .fireworks, .confetti{
+    pointer-events:none;
+    position:absolute;
+    inset:0;
+    z-index:1;
+    overflow:visible;
+  }
+
+  /* simple CSS "sparks" using radial gradients and animation */
+  .spark{
+    position:absolute;
+    width:8px;height:8px;
+    background:radial-gradient(circle at 40% 40%, rgba(255,255,255,1) 0%, rgba(255,200,60,1) 20%, rgba(255,120,0,0.8) 40%, rgba(255,0,0,0) 70%);
+    transform-origin:center;
+    border-radius:50%;
+    opacity:0;
+    animation: burst 1.2s linear infinite;
+  }
+
+  /* create a few different timings so they feel random */
+  .spark:nth-child(1){ left:20%; top:28%; animation-delay:0.2s; transform:scale(1.1) }
+  .spark:nth-child(2){ left:40%; top:18%; animation-delay:0.6s; transform:scale(.9) }
+  .spark:nth-child(3){ left:75%; top:25%; animation-delay:1s; transform:scale(1.25) }
+  .spark:nth-child(4){ left:60%; top:55%; animation-delay:0.35s; transform:scale(.85) }
+  .spark:nth-child(5){ left:30%; top:60%; animation-delay:0.8s; transform:scale(.95) }
+
+  @keyframes burst{
+    0%{ opacity:0; transform:translateY(0) scale(.6) }
+    10%{ opacity:1; transform:translateY(-8px) scale(1) }
+    40%{ opacity:.9; transform:translateY(-40px) scale(1.3) }
+    70%{ opacity:.5; transform:translateY(-80px) scale(1.6) }
+    100%{ opacity:0; transform:translateY(-120px) scale(2) }
+  }
+
+  /* Confetti strips */
+  .confetti span{
+    position:absolute;
+    width:6px;height:14px;
+    border-radius:2px;
+    opacity:0.95;
+    transform-origin:center;
+    animation: fall linear infinite;
+  }
+  /* sample set of confetti with different positions & delays */
+  .confetti span:nth-child(1){ left:8%;  top:-10%; background:var(--saffron); animation-duration:6s; animation-delay:0s }
+  .confetti span:nth-child(2){ left:16%; top:-15%; background:var(--white); animation-duration:5.3s; animation-delay:.4s }
+  .confetti span:nth-child(3){ left:24%; top:-8%;  background:var(--green); animation-duration:6.6s; animation-delay:.8s }
+  .confetti span:nth-child(4){ left:52%; top:-12%; background:var(--saffron); animation-duration:5.9s; animation-delay:1.2s }
+  .confetti span:nth-child(5){ left:68%; top:-14%; background:var(--green); animation-duration:6.1s; animation-delay:1.6s }
+  .confetti span:nth-child(6){ left:82%; top:-9%;  background:var(--white); animation-duration:5.7s; animation-delay:.2s }
+  .confetti span:nth-child(7){ left:90%; top:-20%; background:var(--saffron); animation-duration:7s; animation-delay:2s }
+
+  @keyframes fall{
+    0%{ transform: translateY(0) rotate(0deg); opacity:1 }
+    25%{ transform: translateY(25vh) rotate(80deg) }
+    50%{ transform: translateY(55vh) rotate(160deg); opacity:.95 }
+    75%{ transform: translateY(85vh) rotate(240deg) }
+    100%{ transform: translateY(120vh) rotate(320deg); opacity:0 }
+  }
+
+  /* Footer / small caption */
+  .caption{
+    margin-top:1.4rem;
+    color: rgba(255,255,255,0.65);
+    font-size:.9rem;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width:640px){
+    .card{ padding:1.25rem; border-radius:14px }
+    .ribbon{ height:45%; top:-28% }
+  }
+</style>
+</head>
+<body>
+  <div class="card" role="region" aria-label="Independence Day greeting">
+    <div class="ribbon" aria-hidden="true"></div>
+
+    <div class="hero">
+      <h1>🎉 Happy Independence Day! 🇮🇳</h1>
+      <p class="lead">Wishing everyone freedom, unity and joy. Let's celebrate the spirit of independence — courage, hope and togetherness.</p>
+      <button class="btn" aria-label="Celebrate">
+        <span class="flag-dot" aria-hidden="true"></span>
+        Celebrate
+      </button>
+
+      <div class="caption">Honoring the past. Building the future — Jai Hind.</div>
+    </div>
+
+    <!-- decorative fireworks sparks -->
+    <div class="fireworks" aria-hidden="true">
+      <div class="spark"></div>
+      <div class="spark"></div>
+      <div class="spark"></div>
+      <div class="spark"></div>
+      <div class="spark"></div>
+    </div>
+
+    <!-- falling confetti -->
+    <div class="confetti" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</body>
+</html>
